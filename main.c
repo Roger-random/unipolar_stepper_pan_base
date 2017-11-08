@@ -45,6 +45,56 @@
 
 #include "mcc_generated_files/mcc.h"
 
+static int currentPin = 0;
+static int currentPinDwell = 0;
+
+void pinCountISR(void)
+{
+    if (currentPinDwell < 100)
+    {
+        currentPinDwell++;
+    }
+    else
+    {
+        currentPinDwell = 0;
+        currentPin++;
+        
+        if (currentPin > 3)
+        {
+            currentPin = 0;
+        }
+        
+        if (currentPin == 0)
+        {
+            STEP1_SetHigh();
+            STEP2_SetLow();
+            STEP3_SetLow();
+            STEP4_SetLow();
+        }
+        else if (currentPin == 1)
+        {
+            STEP1_SetLow();
+            STEP2_SetHigh();
+            STEP3_SetLow();
+            STEP4_SetLow();
+        }
+        else if (currentPin == 2)
+        {
+            STEP1_SetLow();
+            STEP2_SetLow();
+            STEP3_SetHigh();
+            STEP4_SetLow();
+        }
+        else 
+        {
+            STEP1_SetLow();
+            STEP2_SetLow();
+            STEP3_SetLow();
+            STEP4_SetHigh();
+        }
+    }
+}
+
 /*
                          Main application
  */
@@ -71,6 +121,7 @@ void main(void)
     while (1)
     {
         // Add your application code
+        pinCountISR();
     }
 }
 /**
