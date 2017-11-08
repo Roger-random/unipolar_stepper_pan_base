@@ -50,7 +50,7 @@ static uint16_t currentPinDwell = 0;
 
 void pinCountISR(void)
 {
-    if (currentPinDwell < 100)
+    if (currentPinDwell < 1000)
     {
         currentPinDwell++;
     }
@@ -135,10 +135,10 @@ void main(void)
     // Use the following macros to:
 
     // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+    INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
+    INTERRUPT_PeripheralInterruptEnable();
 
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
@@ -146,10 +146,11 @@ void main(void)
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
 
+    TMR0_SetInterruptHandler(pinCountISR);
+    
     while (1)
     {
         // Add your application code
-        pinCountISR();
     }
 }
 /**
