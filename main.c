@@ -45,8 +45,8 @@
 
 #include "mcc_generated_files/mcc.h"
 
-static int currentPin = 0;
-static int currentPinDwell = 0;
+static uint16_t currentPin = 0;
+static uint16_t currentPinDwell = 0;
 
 void pinCountISR(void)
 {
@@ -57,41 +57,69 @@ void pinCountISR(void)
     else
     {
         currentPinDwell = 0;
-        currentPin++;
         
-        if (currentPin > 3)
+        currentPin++;        
+        if (currentPin > 7)
         {
             currentPin = 0;
-        }
-        
-        if (currentPin == 0)
-        {
-            STEP1_SetHigh();
-            STEP2_SetLow();
-            STEP3_SetLow();
-            STEP4_SetLow();
-        }
-        else if (currentPin == 1)
-        {
-            STEP1_SetLow();
-            STEP2_SetHigh();
-            STEP3_SetLow();
-            STEP4_SetLow();
-        }
-        else if (currentPin == 2)
-        {
-            STEP1_SetLow();
-            STEP2_SetLow();
-            STEP3_SetHigh();
-            STEP4_SetLow();
-        }
-        else 
-        {
-            STEP1_SetLow();
-            STEP2_SetLow();
-            STEP3_SetLow();
-            STEP4_SetHigh();
-        }
+        }        
+    }
+
+    if (currentPin == 0)
+    {
+        STEP1_SetHigh();
+        STEP2_SetLow();
+        STEP3_SetLow();
+        STEP4_SetLow();
+    }
+    else if (currentPin == 1)
+    {
+        STEP1_SetHigh();
+        STEP2_SetHigh();
+        STEP3_SetLow();
+        STEP4_SetLow();
+    }
+    else if (currentPin == 2)
+    {
+        STEP1_SetLow();
+        STEP2_SetHigh();
+        STEP3_SetLow();
+        STEP4_SetLow();
+    }
+    else if (currentPin == 3)
+    {
+        STEP1_SetLow();
+        STEP2_SetHigh();
+        STEP3_SetHigh();
+        STEP4_SetLow();
+    }
+    else if (currentPin == 4)
+    {
+        STEP1_SetLow();
+        STEP2_SetLow();
+        STEP3_SetHigh();
+        STEP4_SetLow();
+    }
+    else if (currentPin == 5)
+    {
+        STEP1_SetLow();
+        STEP2_SetLow();
+        STEP3_SetHigh();
+        STEP4_SetHigh();
+    }
+    else if (currentPin == 6)
+    {
+        STEP1_SetLow();
+        STEP2_SetLow();
+        STEP3_SetLow();
+        STEP4_SetHigh();
+    }
+    else 
+    {
+        STEP1_SetHigh();
+        STEP2_SetLow();
+        STEP3_SetLow();
+        STEP4_SetHigh();
     }
 }
 
