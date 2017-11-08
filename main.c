@@ -48,79 +48,74 @@
 static uint16_t currentPin = 0;
 static uint16_t currentPinDwell = 0;
 
+static uint8_t pinPatterns[] = {
+    0b00000001,
+    0b00000011,
+    0b00000010,
+    0b00000110,
+    0b00000100,
+    0b00001100,
+    0b00001000,
+    0b00001001,
+};
+
+void patternToPins(uint8_t pattern)
+{
+    if (pattern & 0b0001)
+    {
+        STEP1_SetHigh();
+    }
+    else
+    {
+        STEP1_SetLow();
+    }
+
+    if (pattern & 0b0010)
+    {
+        STEP2_SetHigh();
+    }
+    else
+    {
+        STEP2_SetLow();
+    }
+
+    if (pattern & 0b0100)
+    {
+        STEP3_SetHigh();
+    }
+    else
+    {
+        STEP3_SetLow();
+    }
+
+    if (pattern & 0b1000)
+    {
+        STEP4_SetHigh();
+    }
+    else
+    {
+        STEP4_SetLow();
+    }
+}
+
 void pinCountISR(void)
 {
-    if (currentPinDwell < 1000)
+    if (currentPinDwell < 5000)
     {
         currentPinDwell++;
     }
     else
     {
         currentPinDwell = 0;
-        
-        currentPin++;        
+
+        currentPin++;
         if (currentPin > 7)
         {
             currentPin = 0;
-        }        
+        }
     }
 
-    if (currentPin == 0)
-    {
-        STEP1_SetHigh();
-        STEP2_SetLow();
-        STEP3_SetLow();
-        STEP4_SetLow();
-    }
-    else if (currentPin == 1)
-    {
-        STEP1_SetHigh();
-        STEP2_SetHigh();
-        STEP3_SetLow();
-        STEP4_SetLow();
-    }
-    else if (currentPin == 2)
-    {
-        STEP1_SetLow();
-        STEP2_SetHigh();
-        STEP3_SetLow();
-        STEP4_SetLow();
-    }
-    else if (currentPin == 3)
-    {
-        STEP1_SetLow();
-        STEP2_SetHigh();
-        STEP3_SetHigh();
-        STEP4_SetLow();
-    }
-    else if (currentPin == 4)
-    {
-        STEP1_SetLow();
-        STEP2_SetLow();
-        STEP3_SetHigh();
-        STEP4_SetLow();
-    }
-    else if (currentPin == 5)
-    {
-        STEP1_SetLow();
-        STEP2_SetLow();
-        STEP3_SetHigh();
-        STEP4_SetHigh();
-    }
-    else if (currentPin == 6)
-    {
-        STEP1_SetLow();
-        STEP2_SetLow();
-        STEP3_SetLow();
-        STEP4_SetHigh();
-    }
-    else 
-    {
-        STEP1_SetHigh();
-        STEP2_SetLow();
-        STEP3_SetLow();
-        STEP4_SetHigh();
-    }
+    patternToPins(pinPatterns[currentPin]);
 }
 
 /*
