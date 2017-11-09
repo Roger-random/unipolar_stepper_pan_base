@@ -45,10 +45,14 @@
 
 #include "mcc_generated_files/mcc.h"
 
-static uint16_t currentPin = 0;
-static uint16_t currentPinDwell = 0;
+static uint16_t knobDeadband = 64;
 
-static uint8_t pinPatterns[] = {
+static int8_t coilDirection = 1; // Positive, Negative, or zero to indicate direction of coilPatternIndex movement.
+static uint8_t coilPatternIndex = 0; // Index to coilPatterns indicating current motor coil activation
+static uint16_t timePerCoil = 100; // Lower number = less time per coil = faster speed.
+static uint16_t timeOnCoil = 0; // How much time has already been spent on the current coil.
+
+static uint8_t coilPatterns[] = {
     0b00000001,
     0b00000011,
     0b00000010,
@@ -59,7 +63,7 @@ static uint8_t pinPatterns[] = {
     0b00001001,
 };
 
-void patternToPins(uint8_t pattern)
+void patternToCoils(uint8_t pattern)
 {
     if (pattern & 0b0001)
     {
@@ -98,24 +102,46 @@ void patternToPins(uint8_t pattern)
     }
 }
 
-void pinCountISR(void)
+void coilUpdateISR(void)
 {
-    if (currentPinDwell < 100)
+    if (timeOnCoil < timePerCoil)
     {
-        currentPinDwell++;
+        timeOnCoil++;
     }
     else
     {
-        currentPinDwell = 0;
-
-        currentPin++;
-        if (currentPin > 7)
+        timeOnCoil = 0;
+        
+        if (coilDirection > 0)
         {
-            currentPin = 0;
+            if (coilPatternIndex >= 7)
+            {
+                coilPatternIndex = 0;
+            }
+            else
+            {
+                coilPatternIndex++;
+            }
+            patternToCoils(coilPatterns[coilPatternIndex]);
         }
+        else if (coilDirection < 0)
+        {
+            if (coilPatternIndex == 0 || coilPatternIndex > 7)
+            {
+                coilPatternIndex = 7;
+            }
+            else
+            {
+                coilPatternIndex--;
+            }
+            patternToCoils(coilPatterns[coilPatternIndex]);
+        }
+        else
+        {
+            patternToCoils(0);
+        }
+        
     }
-
-    patternToPins(pinPatterns[currentPin]);
 }
 
 /*
@@ -123,6 +149,8 @@ void pinCountISR(void)
  */
 void main(void)
 {
+    adc_result_t knobValue = 0;
+    
     // initialize the device
     SYSTEM_Initialize();
 
@@ -140,12 +168,29 @@ void main(void)
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-
-    TMR0_SetInterruptHandler(pinCountISR);
     
+    TMR0_SetInterruptHandler(coilUpdateISR);
+
     while (1)
     {
         // Add your application code
+        
+        knobValue = ADC_GetConversion(channel_ANC0);
+        
+        if (knobValue > 512+knobDeadband)
+        {
+            coilDirection = 1;
+            timePerCoil = (1023-knobValue)/2;
+        }
+        else if (knobValue < 512-knobDeadband)
+        {
+            coilDirection = -1;
+            timePerCoil = knobValue/2;
+        }
+        else
+        {
+            coilDirection = 0;
+        }
     }
 }
 /**
