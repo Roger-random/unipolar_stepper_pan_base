@@ -80,6 +80,7 @@ void SYSTEM_Initialize(void)
     OSCILLATOR_Initialize();
     WDT_Initialize();
     TMR0_Initialize();
+    ADC_Initialize();
 }
 
 void OSCILLATOR_Initialize(void)

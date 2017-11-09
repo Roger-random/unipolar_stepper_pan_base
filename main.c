@@ -100,7 +100,7 @@ void patternToPins(uint8_t pattern)
 
 void pinCountISR(void)
 {
-    if (currentPinDwell < 5000)
+    if (currentPinDwell < 100)
     {
         currentPinDwell++;
     }

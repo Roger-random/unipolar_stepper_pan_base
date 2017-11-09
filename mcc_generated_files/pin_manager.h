@@ -59,6 +59,26 @@
 #define PULL_UP_ENABLED      1
 #define PULL_UP_DISABLED     0
 
+// get/set channel_ANC0 aliases
+#define channel_ANC0_TRIS               TRISCbits.TRISC0
+#define channel_ANC0_LAT                LATCbits.LATC0
+#define channel_ANC0_PORT               PORTCbits.RC0
+#define channel_ANC0_WPU                WPUCbits.WPUC0
+#define channel_ANC0_OD                ODCONCbits.ODCC0
+#define channel_ANC0_ANS                ANSELCbits.ANSC0
+#define channel_ANC0_SetHigh()            do { LATCbits.LATC0 = 1; } while(0)
+#define channel_ANC0_SetLow()             do { LATCbits.LATC0 = 0; } while(0)
+#define channel_ANC0_Toggle()             do { LATCbits.LATC0 = ~LATCbits.LATC0; } while(0)
+#define channel_ANC0_GetValue()           PORTCbits.RC0
+#define channel_ANC0_SetDigitalInput()    do { TRISCbits.TRISC0 = 1; } while(0)
+#define channel_ANC0_SetDigitalOutput()   do { TRISCbits.TRISC0 = 0; } while(0)
+#define channel_ANC0_SetPullup()      do { WPUCbits.WPUC0 = 1; } while(0)
+#define channel_ANC0_ResetPullup()    do { WPUCbits.WPUC0 = 0; } while(0)
+#define channel_ANC0_SetPushPull()    do { ODCONCbits.ODCC0 = 1; } while(0)
+#define channel_ANC0_SetOpenDrain()   do { ODCONCbits.ODCC0 = 0; } while(0)
+#define channel_ANC0_SetAnalogMode()  do { ANSELCbits.ANSC0 = 1; } while(0)
+#define channel_ANC0_SetDigitalMode() do { ANSELCbits.ANSC0 = 0; } while(0)
+
 // get/set STEP3 aliases
 #define STEP3_TRIS               TRISCbits.TRISC3
 #define STEP3_LAT                LATCbits.LATC3
