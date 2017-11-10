@@ -566,24 +566,24 @@
          <value>1</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TMR0" registerAlias="T0CON0" settingAlias="T0OUTPS" alias="1:16"/>
-         <value>15</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC" name="ANB7"/>
          <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TMR0" registerAlias="T0CON0" settingAlias="T0OUTPS" alias="1:16"/>
+         <value>15</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="ODCONA" settingAlias="ODCA1"/>
          <value>disabled</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TMR0" registerAlias="T0CON0" settingAlias="T0OUTPS" alias="1:15"/>
-         <value>14</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC" name="ANB6"/>
          <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TMR0" registerAlias="T0CON0" settingAlias="T0OUTPS" alias="1:15"/>
+         <value>14</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="Pin Module" registerAlias="WPUA" settingAlias="WPUA1" alias="set"/>
@@ -4188,12 +4188,12 @@
          <hash>9a607fcd90ad640176757cdc0f8a2c9562b16bdc2532b2a7303296bdd31015e2</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files/pin_manager.h</file>
-         <hash>290b8c504d3934bba1467d23f0f252352953e8eb12eddf3f5f7cce682a413df8</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files/tmr0.c</file>
          <hash>a7295f1bc2bdce48af5e2dbfb0725458789fb9e7ff84f17062f8183a1e1dd6b0</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/pin_manager.h</file>
+         <hash>290b8c504d3934bba1467d23f0f252352953e8eb12eddf3f5f7cce682a413df8</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/adc.c</file>
@@ -4216,12 +4216,12 @@
          <hash>a653e98024001e3025d2b9f4d845c74319ff5e3dea35058861252bd58843e7c7</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files/pin_manager.c</file>
-         <hash>9a7ebf739554e7dafd551fc91db6daf109da9081c0c3a35bbaf1e9a838297da7</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files/tmr0.h</file>
          <hash>57c5cfd203d8dc06fe29babf538fc49b76f646dc012b0acb3e17d7ad3ffb8673</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/pin_manager.c</file>
+         <hash>9a7ebf739554e7dafd551fc91db6daf109da9081c0c3a35bbaf1e9a838297da7</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>
