@@ -180,12 +180,12 @@ void main(void)
         if (knobValue > 512+knobDeadband)
         {
             coilDirection = 1;
-            timePerCoil = (1023-knobValue)/2;
+            timePerCoil = ((1023-knobValue)*10)+10;
         }
         else if (knobValue < 512-knobDeadband)
         {
             coilDirection = -1;
-            timePerCoil = knobValue/2;
+            timePerCoil = (knobValue*10)+10;
         }
         else
         {
